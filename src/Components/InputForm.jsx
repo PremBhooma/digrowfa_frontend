@@ -43,10 +43,8 @@ const InputForm = () => {
       );
       console.log("Form submitted successfully!");
       navigate(`/tableform`);
-      // You can handle success in your application state
     } catch (error) {
       console.error("Error submitting form:", error);
-      // Handle error in your application state
     }
   };
 
