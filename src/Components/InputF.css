@@ -1,0 +1,75 @@
+.formBlock {
+  display: flex;
+  flex-direction: column;
+  /* gap: 30px; */
+  width: 50%;
+  margin: 50px auto;
+}
+
+.btnFaq {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 30px;
+  border-radius: 8px;
+}
+
+.btnFaq > button {
+  border-radius: 8px;
+  border: none;
+  padding: 6px 15px;
+  background-color: aquamarine;
+  font-weight: 600;
+}
+
+.bthSub {
+  border-radius: 8px;
+  border: none;
+  padding: 6px 15px;
+  background-color: rgb(218, 75, 75);
+  font-weight: 600;
+  color: white;
+}
+
+.formTb {
+  width: 80%;
+  margin: auto;
+}
+
+.searchForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 50px auto;
+}
+
+.searchForm > input {
+  width: 50%;
+  border-radius: 6px 0 0 6px;
+  border: 1px solid black;
+  padding: 4px;
+}
+
+.searchForm > button {
+  border-radius: 0 6px 6px 0;
+  border: none;
+  background-color: black;
+  color: white;
+  padding: 5.5px;
+}
+
+.sortBtn {
+  display: flex;
+  justify-content: flex-end;
+  width: 80%;
+  margin: 50px auto;
+}
+
+.sortBtn > button {
+  border-radius: 6px;
+  border: none;
+  background-color: black;
+  color: white;
+  padding: 5.5px;
+}
