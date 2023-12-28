@@ -73,3 +73,19 @@
   color: white;
   padding: 5.5px;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading > p {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+ol {
+  list-style-type: none;
+  padding-left: 0;
+}

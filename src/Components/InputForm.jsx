@@ -10,17 +10,17 @@ const InputForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    faq: [{ question: "", answers: [] }],
+    faq: [{ question: "", answers: [""] }],
   });
 
-  const handleChange = (e, index) => {
+  const handleChange = (e, questionIndex, answerIndex) => {
     const { name, value } = e.target;
     const updatedForm = { ...formData };
 
     if (name === "question") {
-      updatedForm.faq[index].question = value;
-    } else if (name === "answer") {
-      updatedForm.faq[index].answers = value.split(",");
+      updatedForm.faq[questionIndex].question = value;
+    } else if (name === "answers") {
+      updatedForm.faq[questionIndex].answers[answerIndex] = value;
     } else {
       updatedForm[name] = value;
     }
@@ -31,8 +31,16 @@ const InputForm = () => {
   const handleAddFAQ = () => {
     setFormData((prevData) => ({
       ...prevData,
-      faq: [...prevData.faq, { question: "", answers: [] }],
+      faq: [...prevData.faq, { question: "", answers: [""] }],
     }));
+  };
+
+  const handleAddAnswer = (questionIndex) => {
+    setFormData((prevData) => {
+      const updatedForm = { ...prevData };
+      updatedForm.faq[questionIndex].answers.push("");
+      return updatedForm;
+    });
   };
 
   const handleSubmit = async () => {
@@ -82,24 +90,38 @@ const InputForm = () => {
             <label className="form-label">FAQs</label>
 
             <div className="mb-3">
-              {formData.faq.map((faqItem, index) => (
-                <div key={index}>
-                  <label className="form-label">Questions</label>
+              {formData.faq.map((faqItem, questionIndex) => (
+                <div key={questionIndex}>
+                  <label className="form-label">Question</label>
                   <input
                     type="text"
                     name="question"
                     value={faqItem.question}
-                    onChange={(e) => handleChange(e, index)}
+                    onChange={(e) => handleChange(e, questionIndex)}
                     className="form-control"
                   />
                   <label>Answers</label>
-                  <input
-                    type="text"
-                    name="answer"
-                    value={faqItem.answers.join(",")}
-                    onChange={(e) => handleChange(e, index)}
-                    className="form-control"
-                  />
+                  {faqItem.answers.map((answer, answerIndex) => (
+                    <div key={answerIndex}>
+                      <input
+                        type="text"
+                        name="answers"
+                        value={answer}
+                        onChange={(e) =>
+                          handleChange(e, questionIndex, answerIndex)
+                        }
+                        className="form-control"
+                      />
+                      {answerIndex === faqItem.answers.length - 1 && (
+                        <button
+                          type="button"
+                          onClick={() => handleAddAnswer(questionIndex)}
+                        >
+                          Add Answer
+                        </button>
+                      )}
+                    </div>
+                  ))}
                 </div>
               ))}
               <div className="btnFaq">

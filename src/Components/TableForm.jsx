@@ -8,6 +8,7 @@ const TableForm = () => {
   const [formDataList, setFormDL] = useState([]);
   const [sortedFormData, setSortedFD] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,6 +18,7 @@ const TableForm = () => {
         );
         setFormDL(response.data.form);
         setSortedFD(response.data.form);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -70,43 +72,56 @@ const TableForm = () => {
         <button onClick={() => handleSort("postDate")}>Sort with Date</button>
       </div>
 
-      <table className="table formTb">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">S.No</th>
-            <th scope="col">Description</th>
-            <th scope="col">FAQ</th>
-            <th scope="col">Post Date</th>
-            <th scope="col">Post Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedFormData.map((formData, index) => (
-            <tr key={formData._id}>
-              <td>{index + 1}</td>
-              <td>{formData.name}</td>
-              <td>{formData.description}</td>
-              <td>
-                {formData.faq.map((faq, index) => (
-                  <div key={index}>
-                    <div>
-                      <p className="m-0 fw-medium">Question:</p>
-                      <p className="m-0">{faq.question}</p>
-                    </div>
-                    <div>
-                      <p className="m-0 fw-medium">Answers:</p>
-                      <p className="m-0">{faq.answers.join(", ")}</p>
-                    </div>
-                  </div>
-                ))}
-              </td>
-              <td>{formData.postDate}</td>
-              <td>{formData.postTime}</td>
+      {loading ? (
+        <div className="loading">
+          <p>Loading...</p>
+        </div>
+      ) : (
+        <table className="table formTb">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">S.No</th>
+              <th scope="col">Description</th>
+              <th scope="col">FAQ</th>
+              <th scope="col">Post Date</th>
+              <th scope="col">Post Time</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sortedFormData.map((formData, index) => (
+              <tr key={formData._id}>
+                <td>{index + 1}</td>
+                <td>{formData.name}</td>
+                <td>{formData.description}</td>
+                <td>
+                  {formData.faq.map((faq, index) => (
+                    <div key={index}>
+                      <div>
+                        <p className="m-0 fw-medium">Question:</p>
+                        <p className="m-0">{faq.question}</p>
+                      </div>
+                      <div>
+                        {/* <p className="m-0 fw-medium">Answers:</p> */}
+                        <ol>
+                          {faq.answers.map((answer, ansIndex) => (
+                            <li key={ansIndex}>
+                              <span className="m-0 fw-medium">Answer </span>
+                              {`${ansIndex + 1}: ${answer}`}
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    </div>
+                  ))}
+                </td>
+                <td>{formData.postDate}</td>
+                <td>{formData.postTime}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
