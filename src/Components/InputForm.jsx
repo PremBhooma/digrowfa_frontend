@@ -102,7 +102,7 @@ const InputForm = () => {
                   />
                   <label>Answers</label>
                   {faqItem.answers.map((answer, answerIndex) => (
-                    <div key={answerIndex}>
+                    <div key={answerIndex} className="mb-3">
                       <input
                         type="text"
                         name="answers"
@@ -116,6 +116,7 @@ const InputForm = () => {
                         <button
                           type="button"
                           onClick={() => handleAddAnswer(questionIndex)}
+                          className="mt-3 btnAns"
                         >
                           Add Answer
                         </button>

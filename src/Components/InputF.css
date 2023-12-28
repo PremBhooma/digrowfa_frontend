@@ -89,3 +89,11 @@ ol {
   list-style-type: none;
   padding-left: 0;
 }
+
+.btnAns {
+  border-radius: 8px;
+  border: none;
+  padding: 6px 15px;
+  background-color: aquamarine;
+  font-weight: 600;
+}
